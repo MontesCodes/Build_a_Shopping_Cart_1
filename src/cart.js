@@ -31,7 +31,11 @@ let generateCartItems = () => {
       <i class="bi bi-x-lg"></i>
       </div>
       
-      <div class="cart-buttons"></div>
+      <div class="buttons">
+          <i onclick="decrement(${id})" class="bi bi-dash-lg"></i>
+          <div id=${id} class="quantity">${item}</div>
+          <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
+       </div>
       <h3></h3>
       </div>
       </div>`;
@@ -49,3 +53,38 @@ let generateCartItems = () => {
 };
 
 generateCartItems();
+
+let increment = id => {
+  let selectedItem = id;
+  let search = basket.find(x => x.id === selectedItem.id);
+
+  if (search === undefined) {
+    basket.push({
+      id: selectedItem.id,
+      item: 1,
+    });
+  } else {
+    search.item += 1;
+  }
+
+  update(selectedItem.id);
+  localStorage.setItem('dataStorage', JSON.stringify(basket));
+};
+let decrement = id => {
+  let selectedItem = id;
+  let search = basket.find(x => x.id === selectedItem.id);
+  if (search === undefined) return;
+  else if (search.item === 0) return;
+  else {
+    search.item -= 1;
+  }
+
+  update(selectedItem.id);
+  basket = basket.filter(m => m.item !== 0);
+  localStorage.setItem('dataStorage', JSON.stringify(basket));
+};
+let update = id => {
+  let search = basket.find(x => x.id === id);
+  document.getElementById(id).innerHTML = search.item;
+  calculation();
+};

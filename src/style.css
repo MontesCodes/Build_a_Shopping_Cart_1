@@ -172,4 +172,6 @@ a {
 .cart-item-price {
   background-color: #212529;
   color: white;
+  border-radius: 4px;
+  padding: 3px 6px;
 }
