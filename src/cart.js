@@ -114,4 +114,4 @@ let TotalAmount = () => {
   } else return;
 };
 
-TotalAmount();
+// TotalAmount();
